@@ -1,5 +1,6 @@
 <?php
 session_start();
+$tipo_usuario = isset($_SESSION['admin_id']) ? 'admin' : 'doador';
 ?>
 
 <!DOCTYPE html>
@@ -40,9 +41,17 @@ session_start();
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarAdminDropdown">
                     <li><a class="dropdown-item" href="painel_adm.php">Painel</a></li>
+                    <li><a class="dropdown-item" href="controle_doacoes.php">Gerenciar Doações</a></li>
                     <li><a class="dropdown-item" href="gerenciar_doadores.php">Gerenciar Doadores</a></li>
                     <li><a class="dropdown-item" href="gerenciar_locais.php">Gerenciar Locais</a></li>
                 </ul>
+            </li>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['doador_id'])): ?>
+            <!-- Bloco que só aparece se o doador estiver logado -->
+            <li class="nav-item">
+              <a class="nav-link" href="controle_doacoes.php">Doações</a>
             </li>
         <?php endif; ?>
 

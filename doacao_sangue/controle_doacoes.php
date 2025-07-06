@@ -1,27 +1,26 @@
 <?php
-$tipo_usuario = isset($_SESSION['admin_id']) ? 'admin' : 'doador';
 include 'includes/header.php';
 include 'includes/verifica_login.php';
-require 'includes/conexao.php';
+include 'includes/conexao.php';
 
 // Busca dados necessários:
 try {
     // Buscar doações:
     if ($tipo_usuario === 'admin') {
-        $sql = "SELECT d.id, do.nome_completo, l.nome_local, d.data_doacao, d.volume_ml, d.observacoes
+        $sql = "SELECT d.id, d.doador_id, do.nome_completo, l.nome_local, d.data_doacao, d.volume_ml, d.observacoes
                 FROM doacoes d
                 JOIN doadores do ON d.doador_id = do.id
                 JOIN locais_doacao l ON d.local_id = l.id
-                ORDER BY d.data_doacao DESC";
+                ORDER BY d.data_doacao";
         $stmt = mysqli_query($conexao, $sql);
     } else {
         $doador_id = $_SESSION['doador_id'];
-        $sql = "SELECT d.id, do.nome_completo, l.nome_local, d.data_doacao, d.volume_ml, d.observacoes
+        $sql = "SELECT d.id, d.doador_id, do.nome_completo, l.nome_local, d.data_doacao, d.volume_ml, d.observacoes
                 FROM doacoes d
                 JOIN doadores do ON d.doador_id = do.id
                 JOIN locais_doacao l ON d.local_id = l.id
                 WHERE d.doador_id = $doador_id
-                ORDER BY d.data_doacao DESC";
+                ORDER BY d.data_doacao";
         $stmt = mysqli_query($conexao, $sql);
     }
 } catch (Exception $e) {
@@ -41,6 +40,14 @@ try {
     </div>
 </div>
 
+<?php if (isset($_GET['mensagem']) && isset($_GET['tipo'])): ?>
+    <div class="container mt-3">
+        <div class="alert alert-<?php echo htmlspecialchars($_GET['tipo']); ?> text-center">
+            <?php echo htmlspecialchars($_GET['mensagem']); ?>
+        </div>
+    </div>
+<?php endif; ?>
+
 <div class="container mt-4 mb-5">
     <div class="table-responsive">
         <table class="table table-striped table-bordered align-middle">
@@ -51,6 +58,9 @@ try {
                     <th>Data da Doação</th>
                     <th>Volume (ml)</th>
                     <th>Observações</th>
+                    <?php if ($tipo_usuario === 'admin'): ?>
+                        <th>Ações</th>
+                    <?php endif; ?>
                 </tr>
             </thead>
             <tbody>
@@ -59,14 +69,29 @@ try {
                         <tr>
                             <td><?php echo htmlspecialchars($row['nome_completo']); ?></td>
                             <td><?php echo htmlspecialchars($row['nome_local']); ?></td>
-                            <td><?php echo date('d/m/Y', strtotime($row['data_doacao'])); ?></td>
+                            <td class="text-center"><?php echo date('d/m/Y', strtotime($row['data_doacao'])); ?></td>
                             <td class="text-center"><?php echo htmlspecialchars($row['volume_ml']); ?></td>
                             <td><?php echo nl2br(htmlspecialchars($row['observacoes'])); ?></td>
+                            <?php if ($tipo_usuario === 'admin'): ?>
+                                <td class="text-center">
+                                    <a href="registrar_doacao.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-warning me-1" title="Editar">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </a>
+                                    <a href="backend/remover_doacao.php?id=<?php echo $row['id']; ?>"
+                                       class="btn btn-sm btn-danger"
+                                       title="Excluir"
+                                       onclick="return confirm('Tem certeza que deseja excluir esta doação?');">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="5" class="text-center">Nenhuma doação registrada até o momento.</td>
+                        <td colspan="<?php echo $tipo_usuario === 'admin' ? '6' : '5'; ?>" class="text-center">
+                            Nenhuma doação registrada até o momento.
+                        </td>
                     </tr>
                 <?php endif; ?>
             </tbody>

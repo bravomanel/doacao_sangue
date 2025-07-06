@@ -68,6 +68,7 @@ O sistema foi construído utilizando as seguintes tecnologias:
 #### Fase 3: Desenvolvimento das Páginas e Funcionalidades
   - [x] Páginas Privadas:
       - [x] Desenvolver `painel_adm.php`.
+      - [x] Desenvolver `registrar_doacao.php`.
   - [ ] Páginas Públicas:
       - [x] Desenvolver `index.php`.
       - [ ] Desenvolver `quem_somos.php`.

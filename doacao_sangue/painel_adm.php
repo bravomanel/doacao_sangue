@@ -1,5 +1,4 @@
 <?php
-$tipo_usuario = 'admin';
 include 'includes/header.php';
 include 'includes/verifica_login.php';
 ?>
