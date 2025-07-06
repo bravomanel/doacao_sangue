@@ -3,6 +3,12 @@ include 'includes/header.php';
 include 'includes/verifica_login.php';
 require 'includes/conexao.php';
 
+// Verifica se adm está logado
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: ../logout.php");
+    exit();
+}
+
 $result = mysqli_query($conexao, "SELECT * FROM locais_doacao ORDER BY nome_local");
 ?>
 

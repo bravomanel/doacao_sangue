@@ -26,9 +26,19 @@ $tipo_usuario = isset($_SESSION['admin_id']) ? 'admin' : 'doador';
         <li class="nav-item">
           <a class="nav-link" href="index.php">Home</a>
         </li>
+        <?php if (!isset($_SESSION['doador_id']) && !isset($_SESSION['admin_id'])): ?>
         <li class="nav-item">
           <a class="nav-link" href="cadastrar_doador.php">Seja um Doador</a>
         </li>
+        <?php 
+          endif;
+
+          if (isset($_SESSION['doador_id'])): ?>
+            <!-- Bloco que só aparece se o doador estiver logado -->
+            <li class="nav-item">
+              <a class="nav-link" href="cadastrar_doador.php?id= <?php echo $_SESSION['doador_id'] ?> ">Alterar Perfil</a>
+            </li>
+        <?php endif; ?>
         <li class="nav-item">
           <a class="nav-link" href="quem_somos.php">Quem Somos</a>
         </li>

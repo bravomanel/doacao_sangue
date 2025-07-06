@@ -29,8 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         fez_tatuagem_12meses = '$fez_tatuagem_12meses'
                     WHERE id = '$id'";
             if (mysqli_query($conexao, $sql)) {
-                header("Location: ../gerenciar_doadores.php?mensagem=" . urlencode("Doador atualizado com sucesso!") . "&tipo=success");
-                exit();
+                if(isset($_SESSION['admin_id']))
+                    header("Location: ../gerenciar_doadores.php?mensagem=" . urlencode("Doador atualizado com sucesso!") . "&tipo=success");
+                else header("Location: ../controle_doacoes.php?mensagem=" . urlencode("Dados atualizados com sucesso!") . "&tipo=success");
+                    exit();
             } else {
                 header("Location: ../gerenciar_doadores.php?mensagem=" . urlencode("Erro ao atualizar doador: " . mysqli_error($conexao)) . "&tipo=danger");
                 exit();

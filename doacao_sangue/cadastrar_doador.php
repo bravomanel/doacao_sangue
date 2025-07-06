@@ -17,14 +17,19 @@ $doador = [
 ];
 
 if (isset($_GET['id'])) {
-    $id = mysqli_real_escape_string($conexao, $_GET['id']);
-    $sql = "SELECT * FROM doadores WHERE id = '$id'";
-    $result = mysqli_query($conexao, $sql);
-    if ($result && mysqli_num_rows($result) > 0) {
-        $doador = mysqli_fetch_assoc($result);
-        $modo_edicao = true;
-    } else {
-        echo "<div class='alert alert-danger text-center'>Doador não encontrado.</div>";
+    if(isset($_SESSION['admin_id']) || $_GET['id'] == $_SESSION['doador_id']){
+        $id = mysqli_real_escape_string($conexao, $_GET['id']);
+        $sql = "SELECT * FROM doadores WHERE id = '$id'";
+        $result = mysqli_query($conexao, $sql);
+        if ($result && mysqli_num_rows($result) > 0) {
+            $doador = mysqli_fetch_assoc($result);
+            $modo_edicao = true;
+        } else {
+            echo "<div class='alert alert-danger text-center'>Doador não encontrado.</div>";
+        }
+    }else{
+        header("Location: ../controle_doacoes.php?mensagem=" . urlencode("Você não tem permissão para editar esta doação.") . "&tipo=danger");
+        exit();
     }
 }
 ?>

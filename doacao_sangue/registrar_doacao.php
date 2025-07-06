@@ -3,6 +3,12 @@ include 'includes/header.php';
 include 'includes/verifica_login.php';
 require 'includes/conexao.php';
 
+// Verifica se adm está logado
+if (!isset($_SESSION['admin_id']) || !isset($_SESSION['doador_id'])) {
+    header("Location: ../logout.php");
+    exit();
+}
+
 // Buscar locais de doação
 $locais_result = mysqli_query($conexao, "SELECT id, nome_local FROM locais_doacao ORDER BY nome_local");
 

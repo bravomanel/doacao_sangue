@@ -1,6 +1,13 @@
 <?php
 include 'includes/header.php';
 include 'includes/verifica_login.php';
+
+// Verifica se adm está logado
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: ../logout.php");
+    exit();
+}
+
 ?>
 
 <div class="p-5 mb-4 bg-light rounded-3 text-center">

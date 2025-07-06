@@ -3,6 +3,12 @@ include 'includes/header.php';
 include 'includes/verifica_login.php';
 include 'includes/conexao.php';
 
+// Verifica se adm está logado
+if (!isset($_SESSION['admin_id']) || !isset($_SESSION['doador_id'])) {
+    header("Location: ../logout.php");
+    exit();
+}
+
 // Busca dados necessários:
 try {
     // Buscar doações:
@@ -85,7 +91,7 @@ try {
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="<?php echo $tipo_usuario === 'admin' ? '6' : '5'; ?>" class="text-center">
+                        <td colspan="6" class="text-center">
                             Nenhuma doação registrada até o momento.
                         </td>
                     </tr>

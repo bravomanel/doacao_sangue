@@ -1,7 +1,7 @@
 <?php 
 include 'includes/header.php'; 
-if (isset($_SESSION['admin_id'])) {
-    header("Location: painel_admin.php");
+if (isset($_SESSION['admin_id']) || isset($_SESSION['doador_id'])) {
+    header("Location: ../logout.php");
     exit();
 }
 ?>

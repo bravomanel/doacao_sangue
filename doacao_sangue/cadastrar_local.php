@@ -3,6 +3,12 @@ include 'includes/header.php';
 include 'includes/verifica_login.php';
 require 'includes/conexao.php';
 
+// Verifica se adm está logado
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: ../logout.php");
+    exit();
+}
+
 // Se for edição
 $local = null;
 if (isset($_GET['id']) && !empty($_GET['id'])) {

@@ -4,7 +4,7 @@ require '../includes/conexao.php';
 
 // Verifica se adm está logado
 if (!isset($_SESSION['admin_id'])) {
-    header("Location: ../login.php?mensagem=" . urlencode("Faça o login para continuar.") . "&tipo=danger");
+    header("Location: ../logout.php");
     exit();
 }
 
