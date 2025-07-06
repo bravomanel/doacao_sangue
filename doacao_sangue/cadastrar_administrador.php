@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = mysqli_prepare($conexao, $sql);
 
         if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "ss", $usuario);
+            mysqli_stmt_bind_param($stmt, "s", $usuario);
             
             if (mysqli_stmt_execute($stmt)) {
                 $mensagem = '<div class="alert alert-success">Administrador cadastrado com sucesso!</div>';

@@ -54,7 +54,7 @@ if (isset($_GET['id'])) {
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="cpf" class="form-label">CPF</label>
-                            <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00" required value="<?php echo htmlspecialchars($doador['cpf']); ?>" <?php echo $modo_edicao ? 'readonly' : ''; ?>>
+                            <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00" required value="<?php echo htmlspecialchars($doador['cpf']); ?>">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="data_nascimento" class="form-label">Data de Nascimento</label>

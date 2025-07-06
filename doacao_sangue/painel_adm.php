@@ -7,7 +7,6 @@ include 'includes/verifica_login.php';
     <div class="container-fluid py-5">
         <h1 class="display-4 fw-bold">Painel do Administrador 🩸</h1>
         <p class="fs-4">Bem-vindo, <?php echo htmlspecialchars($_SESSION['admin_usuario']); ?>! Utilize este painel para gerenciar doadores, locais de doação e o controle de doações.</p>
-        <a href="cadastrar_doador.php" class="btn btn-danger btn-lg mt-3" role="button">Cadastrar Novo Doador</a>
     </div>
 </div>
 

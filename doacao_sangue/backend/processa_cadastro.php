@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         nome_completo = '$nome_completo',
                         data_nascimento = '$data_nascimento',
                         cep = '$cep',
+                        cpf = '$cpf',
                         tipo_sanguineo = '$tipo_sanguineo',
                         email = '$email',
                         pesa_mais_50kg = '$pesa_mais_50kg',

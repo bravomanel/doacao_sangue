@@ -10,6 +10,7 @@ $result = mysqli_query($conexao, "SELECT * FROM doadores ORDER BY nome_completo"
     <div class="container-fluid py-5">
         <h1 class="display-4 fw-bold">Gerenciar Doadores ❤️</h1>
         <p class="fs-4">Visualize, edite ou remova os doadores cadastrados no sistema.</p>
+        <a href="cadastrar_doador.php" class="btn btn-danger btn-lg mt-3">Cadastrar Novo Doador</a>
     </div>
 </div>
 
