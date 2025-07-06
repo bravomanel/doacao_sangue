@@ -59,16 +59,18 @@ O sistema foi construído utilizando as seguintes tecnologias:
 
   - [x] Criar o arquivo de conexão `includes/conexao.php`.
   - [x] Desenvolver `includes/header.php` e `includes/footer.php`.
-  - [ ] Login do Administrador:
-      - [ ] Criar o formulário em `login.php`.
-      - [ ] Desenvolver `backend/processa_login.php` para validar o usuário e criar uma sessão (`$_SESSION`).
-      - [ ] Criar um script `includes/verifica_login.php` para incluir no topo das páginas restritas.
-      - [ ] Criar `logout.php` para destruir a sessão.
+  - [x] Login do Administrador:
+      - [x] Criar o formulário em `login.php`.
+      - [x] Desenvolver `backend/processa_login.php` para validar o usuário e criar uma sessão (`$_SESSION`).
+      - [x] Criar um script `includes/verifica_login.php` para incluir no topo das páginas restritas.
+      - [x] Criar `logout.php` para destruir a sessão.
 
 #### Fase 3: Desenvolvimento das Páginas e Funcionalidades
-
+  - [ ] Páginas Privadas:
+      - [x] Desenvolver `painel_adm.php`.
+      - [ ] Desenvolver `home.php`.
   - [ ] Páginas Públicas:
-      - [ ] Desenvolver `index.php`.
+      - [x] Desenvolver `index.php`.
       - [ ] Desenvolver `quem_somos.php`.
   - [ ] CRUD de Doadores:
       - [ ] Create: Atualizar `cadastrar_doador.php` com os campos de CPF, CEP e o questionário. Atualizar `backend/processa_cadastro.php`.

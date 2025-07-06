@@ -1,7 +1,3 @@
-<?php
-// Inicia a sessão.
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -39,7 +35,7 @@ session_start();
                     Administração
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarAdminDropdown">
-                    <li><a class="dropdown-item" href="painel_admin.php">Painel</a></li>
+                    <li><a class="dropdown-item" href="painel_adm.php">Painel</a></li>
                     <li><a class="dropdown-item" href="gerenciar_doadores.php">Gerenciar Doadores</a></li>
                     <li><a class="dropdown-item" href="gerenciar_locais.php">Gerenciar Locais</a></li>
                 </ul>
