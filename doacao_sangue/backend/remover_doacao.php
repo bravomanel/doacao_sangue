@@ -2,9 +2,9 @@
 session_start();
 require '../includes/conexao.php';
 
-// Verifica se está logado
-if (!isset($_SESSION['admin_id']) && !isset($_SESSION['doador_id'])) {
-    header("Location: ../login.php?error=acesso_negado");
+// Verifica se adm está logado
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: ../login.php?mensagem=" . urlencode("Faça o login para continuar.") . "&tipo=danger");
     exit();
 }
 

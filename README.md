@@ -72,15 +72,15 @@ O sistema foi construído utilizando as seguintes tecnologias:
   - [x] Páginas Públicas:
       - [x] Desenvolver `index.php`.
       - [x] Desenvolver `quem_somos.php`.
-  - [ ] CRUD de Doadores:
-      - [ ] Create: Atualizar `cadastrar_doador.php` com os campos de CPF, CEP e o questionário. Atualizar `backend/processa_cadastro.php`.
-      - [ ] Read: Implementar `gerenciar_doadores.php`.
-      - [ ] Update: Implementar `editar_doador.php` e `backend/processa_edicao.php`.
-      - [ ] Delete: Implementar a exclusão com modal em `gerenciar_doadores.php` e `backend/deletar_doador.php`.
-  - [ ] CRUD de Locais de Doação (Admin):
-      - [ ] Criar a página `gerenciar_locais.php` para listar, editar e excluir locais.
-      - [ ] Criar formulário e script para `cadastrar_local.php` e `backend/processa_local_cadastro.php`.
-      - [ ] Criar formulário e script para `editar_local.php` e `backend/processa_local_edicao.php`.
+  - [x] CRUD de Doadores:
+      - [x] Create: Atualizar `cadastrar_doador.php` com os campos de CPF, CEP e o questionário. Atualizar `backend/processa_cadastro.php`.
+      - [x] Read: Implementar `gerenciar_doadores.php`.
+      - [x] Update: Implementar `editar_doador.php` e `backend/processa_edicao.php`.
+      - [x] Delete: Implementar a exclusão com modal em `gerenciar_doadores.php` e `backend/deletar_doador.php`.
+  - [x] CRUD de Locais de Doação (Admin):
+      - [x] Criar a página `gerenciar_locais.php` para listar, editar e excluir locais.
+      - [x] Criar formulário e script para `cadastrar_local.php` e `backend/processa_local_cadastro.php`.
+      - [x] Criar formulário e script para `editar_local.php` e `backend/processa_local_edicao.php`.
   - [x] Controle de Doações:
       - [x] Atualizar `controle_doacoes.php` para que o formulário de nova doação inclua um `<select>` com os locais de doação cadastrados.
       - [x] Atualizar `backend/processa_doacao.php` para salvar o `local_id`.
@@ -90,3 +90,4 @@ O sistema foi construído utilizando as seguintes tecnologias:
   - [ ] Revisar a responsividade de todas as páginas.
   - [ ] Testar todos os fluxos de usuário (cadastro, login de admin, todos os CRUDs).
   - [ ] Limpar o código e adicionar comentários.
+  - [ ] Fazer o Deploy.

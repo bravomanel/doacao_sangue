@@ -11,16 +11,16 @@ if (!isset($_SESSION['admin_id'])) {
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $id = mysqli_real_escape_string($conexao, $_GET['id']);
 
-    $sql = "DELETE FROM doadores WHERE id = '$id'";
+    $sql = "DELETE FROM locais_doacao WHERE id = '$id'";
     if (mysqli_query($conexao, $sql)) {
-        header("Location: ../gerenciar_doadores.php?mensagem=" . urlencode("Doador removido com sucesso.") . "&tipo=success");
+        header("Location: ../gerenciar_locais.php?mensagem=" . urlencode("Local removido com sucesso.") . "&tipo=success");
         exit();
     } else {
-        header("Location: ../gerenciar_doadores.php?mensagem=" . urlencode("Erro ao remover doador: " . mysqli_error($conexao)) . "&tipo=danger");
+        header("Location: ../gerenciar_locais.php?mensagem=" . urlencode("Erro ao remover local: " . mysqli_error($conexao)) . "&tipo=danger");
         exit();
     }
 } else {
-    header("Location: ../gerenciar_doadores.php?mensagem=" . urlencode("ID do doador não informado.") . "&tipo=warning");
+    header("Location: ../gerenciar_locais.php?mensagem=" . urlencode("ID do local não informado.") . "&tipo=warning");
     exit();
 }
 ?>
