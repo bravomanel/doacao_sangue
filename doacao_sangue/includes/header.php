@@ -53,6 +53,11 @@ session_start();
                   Olá, <?php echo htmlspecialchars($_SESSION['admin_usuario']); ?>!
               </span>
               <a href="logout.php" class="btn btn-outline-light">Sair <i class="bi bi-box-arrow-right"></i></a>
+          <?php elseif (isset($_SESSION['doador_id'])): ?>
+              <span class="navbar-text me-3">
+                  Olá, <?php echo htmlspecialchars($_SESSION['doador_nome']); ?>!
+              </span>
+              <a href="logout.php" class="btn btn-outline-light">Sair <i class="bi bi-box-arrow-right"></i></a>
           <?php else: ?>
               <a href="login.php" class="btn btn-light">Login <i class="bi bi-box-arrow-in-right"></i></a>
           <?php endif; ?>
