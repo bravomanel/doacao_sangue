@@ -9,6 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data_doacao = mysqli_real_escape_string($conexao, $_POST['data_doacao']);
     $volume_ml = mysqli_real_escape_string($conexao, $_POST['volume_ml']);
     $observacoes = mysqli_real_escape_string($conexao, $_POST['observacoes']);
+    $pesa_mais_50kg = mysqli_real_escape_string($conexao, $_POST['pesa_mais_50kg']);
+    $teve_febre_7dias = mysqli_real_escape_string($conexao, $_POST['teve_febre_7dias']);
+    $fez_tatuagem_12meses = mysqli_real_escape_string($conexao, $_POST['fez_tatuagem_12meses']);
 
     if ($tipo_usuario === 'admin') {
         $doador_id = mysqli_real_escape_string($conexao, $_POST['doador_id']);
@@ -17,6 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!empty($local_id) && !empty($data_doacao) && !empty($volume_ml) && !empty($doador_id)) {
+
+        $sql_triagem_update = "UPDATE doadores SET 
+            pesa_mais_50kg = '$pesa_mais_50kg', 
+            teve_febre_7dias = '$teve_febre_7dias', 
+            fez_tatuagem_12meses = '$fez_tatuagem_12meses' 
+            WHERE id = '$doador_id'";
 
         if (isset($_POST['id']) && !empty($_POST['id'])) {
             // MODO EDITAR
@@ -30,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         observacoes = '$observacoes'
                     WHERE id = '$id'";
 
-            if (mysqli_query($conexao, $sql)) {
+            if (mysqli_query($conexao, $sql) && mysqli_query($conexao, $sql_triagem_update)) {
                 header("Location: ../controle_doacoes.php?mensagem=" . urlencode("Doação atualizada com sucesso!") . "&tipo=success");
                 exit();
             } else {
@@ -43,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $sql = "INSERT INTO doacoes (doador_id, local_id, data_doacao, volume_ml, observacoes)
                     VALUES ('$doador_id', '$local_id', '$data_doacao', '$volume_ml', '$observacoes')";
 
-            if (mysqli_query($conexao, $sql)) {
+            if (mysqli_query($conexao, $sql) && mysqli_query($conexao, $sql_triagem_update)) {
                 header("Location: ../controle_doacoes.php?mensagem=" . urlencode("Doação registrada com sucesso!") . "&tipo=success");
                 exit();
             } else {

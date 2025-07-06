@@ -2,12 +2,6 @@
 session_start();
 require '../includes/conexao.php';
 
-// Verifica se adm está logado
-if (!isset($_SESSION['admin_id'])) {
-    header("Location: ../login.php?mensagem=" . urlencode("Faça o login para continuar.") . "&tipo=danger");
-    exit();
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
     $id = mysqli_real_escape_string($conexao, $_GET['id']);
 

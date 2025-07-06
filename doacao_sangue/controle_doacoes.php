@@ -58,9 +58,7 @@ try {
                     <th>Data da Doação</th>
                     <th>Volume (ml)</th>
                     <th>Observações</th>
-                    <?php if ($tipo_usuario === 'admin'): ?>
-                        <th>Ações</th>
-                    <?php endif; ?>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -72,19 +70,17 @@ try {
                             <td class="text-center"><?php echo date('d/m/Y', strtotime($row['data_doacao'])); ?></td>
                             <td class="text-center"><?php echo htmlspecialchars($row['volume_ml']); ?></td>
                             <td><?php echo nl2br(htmlspecialchars($row['observacoes'])); ?></td>
-                            <?php if ($tipo_usuario === 'admin'): ?>
-                                <td class="text-center">
-                                    <a href="registrar_doacao.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-warning me-1" title="Editar">
-                                        <i class="bi bi-pencil-fill"></i>
-                                    </a>
-                                    <a href="backend/remover_doacao.php?id=<?php echo $row['id']; ?>"
-                                       class="btn btn-sm btn-danger"
-                                       title="Excluir"
-                                       onclick="return confirm('Tem certeza que deseja excluir esta doação?');">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </a>
-                                </td>
-                            <?php endif; ?>
+                            <td class="text-center">
+                                <a href="registrar_doacao.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-warning me-1" title="Editar">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </a>
+                                <a href="backend/remover_doacao.php?id=<?php echo $row['id']; ?>"
+                                    class="btn btn-sm btn-danger"
+                                    title="Excluir"
+                                    onclick="return confirm('Tem certeza que deseja excluir esta doação?');">
+                                    <i class="bi bi-trash-fill"></i>
+                                </a>
+                            </td>
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
