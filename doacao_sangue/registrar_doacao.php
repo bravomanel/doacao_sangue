@@ -3,11 +3,13 @@ include 'includes/header.php';
 include 'includes/verifica_login.php';
 require 'includes/conexao.php';
 
-// Verifica se adm está logado
-if (!isset($_SESSION['admin_id']) || !isset($_SESSION['doador_id'])) {
+// Verifica se está logado (admin ou doador)
+if (!isset($_SESSION['admin_id']) && !isset($_SESSION['doador_id'])) {
     header("Location: ../logout.php");
     exit();
 }
+
+$tipo_usuario = isset($_SESSION['admin_id']) ? 'admin' : 'doador';
 
 // Buscar locais de doação
 $locais_result = mysqli_query($conexao, "SELECT id, nome_local FROM locais_doacao ORDER BY nome_local");
@@ -23,11 +25,15 @@ if (isset($_GET['id'])) {
     $modo_edicao = true;
     $id_editar = intval($_GET['id']);
 
-    // Verificação de segurança para doador não remover doação de outro
-    if (isset($_SESSION['doador_id']) && !isset($_SESSION['admin_id'])) {
+    // Se for doador, verificar se a doação pertence a ele
+    if ($tipo_usuario === 'doador') {
         $doador_id = $_SESSION['doador_id'];
-        $check_sql = "SELECT id FROM doacoes WHERE id = '$id_editar' AND doador_id = '$doador_id'";
-        $check_result = mysqli_query($conexao, $check_sql);
+
+        $check_sql = "SELECT id FROM doacoes WHERE id = ? AND doador_id = ?";
+        $stmt = mysqli_prepare($conexao, $check_sql);
+        mysqli_stmt_bind_param($stmt, "ii", $id_editar, $doador_id);
+        mysqli_stmt_execute($stmt);
+        $check_result = mysqli_stmt_get_result($stmt);
 
         if (mysqli_num_rows($check_result) === 0) {
             header("Location: ../controle_doacoes.php?mensagem=" . urlencode("Você não tem permissão para editar esta doação.") . "&tipo=danger");
@@ -35,8 +41,12 @@ if (isset($_GET['id'])) {
         }
     }
 
-    $sql = "SELECT * FROM doacoes WHERE id = $id_editar";
-    $result = mysqli_query($conexao, $sql);
+    // Buscar dados da doação
+    $sql = "SELECT * FROM doacoes WHERE id = ?";
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $id_editar);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
     if ($result && mysqli_num_rows($result) > 0) {
         $doacao = mysqli_fetch_assoc($result);

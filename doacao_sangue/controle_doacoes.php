@@ -3,34 +3,43 @@ include 'includes/header.php';
 include 'includes/verifica_login.php';
 include 'includes/conexao.php';
 
-// Verifica se adm está logado
-if (!isset($_SESSION['admin_id']) || !isset($_SESSION['doador_id'])) {
+// Verifica se usuário está logado (admin OU doador)
+if (!isset($_SESSION['admin_id']) && !isset($_SESSION['doador_id'])) {
     header("Location: ../logout.php");
     exit();
 }
 
-// Busca dados necessários:
+// Busca dados necessários
 try {
-    // Buscar doações:
-    if ($tipo_usuario === 'admin') {
+    if (isset($_SESSION['admin_id'])) {
+        // ADMIN: busca todas as doações
         $sql = "SELECT d.id, d.doador_id, do.nome_completo, l.nome_local, d.data_doacao, d.volume_ml, d.observacoes
                 FROM doacoes d
                 JOIN doadores do ON d.doador_id = do.id
                 JOIN locais_doacao l ON d.local_id = l.id
                 ORDER BY d.data_doacao";
-        $stmt = mysqli_query($conexao, $sql);
+        $stmt = mysqli_prepare($conexao, $sql);
     } else {
-        $doador_id = $_SESSION['doador_id'];
+        // DOADOR: busca apenas as próprias doações
         $sql = "SELECT d.id, d.doador_id, do.nome_completo, l.nome_local, d.data_doacao, d.volume_ml, d.observacoes
                 FROM doacoes d
                 JOIN doadores do ON d.doador_id = do.id
                 JOIN locais_doacao l ON d.local_id = l.id
-                WHERE d.doador_id = $doador_id
+                WHERE d.doador_id = ?
                 ORDER BY d.data_doacao";
-        $stmt = mysqli_query($conexao, $sql);
+        $stmt = mysqli_prepare($conexao, $sql);
+        $doador_id = $_SESSION['doador_id'];
+        mysqli_stmt_bind_param($stmt, "i", $doador_id);
+    }
+
+    if ($stmt) {
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+    } else {
+        throw new Exception("Erro ao preparar consulta: " . mysqli_error($conexao));
     }
 } catch (Exception $e) {
-    echo "<div class='alert alert-danger'>Erro ao buscar dados: " . $e->getMessage() . "</div>";
+    echo "<div class='alert alert-danger text-center'>Erro ao buscar dados: " . htmlspecialchars($e->getMessage()) . "</div>";
 }
 ?>
 
@@ -68,8 +77,8 @@ try {
                 </tr>
             </thead>
             <tbody>
-                <?php if (mysqli_num_rows($stmt) > 0): ?>
-                    <?php while ($row = mysqli_fetch_assoc($stmt)): ?>
+                <?php if($result && mysqli_num_rows($result) > 0): ?>
+                    <?php while ($row = mysqli_fetch_assoc($result)): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($row['nome_completo']); ?></td>
                             <td><?php echo htmlspecialchars($row['nome_local']); ?></td>

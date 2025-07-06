@@ -12,13 +12,29 @@ if (!isset($_SESSION['admin_id'])) {
 // Se for edição
 $local = null;
 if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $id = mysqli_real_escape_string($conexao, $_GET['id']);
-    $sql = "SELECT * FROM locais_doacao WHERE id = '$id'";
-    $result = mysqli_query($conexao, $sql);
-    if ($result && mysqli_num_rows($result) > 0) {
-        $local = mysqli_fetch_assoc($result);
+    $id = $_GET['id'];
+
+    // Validação adicional para garantir que é um inteiro
+    if (!filter_var($id, FILTER_VALIDATE_INT)) {
+        header("Location: gerenciar_locais.php?mensagem=" . urlencode("ID inválido.") . "&tipo=danger");
+        exit();
+    }
+
+    $sql = "SELECT * FROM locais_doacao WHERE id = ?";
+    $stmt = mysqli_prepare($conexao, $sql);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "i", $id);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        if ($result && mysqli_num_rows($result) > 0) {
+            $local = mysqli_fetch_assoc($result);
+        } else {
+            header("Location: gerenciar_locais.php?mensagem=" . urlencode("Local não encontrado.") . "&tipo=warning");
+            exit();
+        }
+        mysqli_stmt_close($stmt);
     } else {
-        header("Location: gerenciar_locais.php?mensagem=" . urlencode("Local não encontrado.") . "&tipo=warning");
+        header("Location: gerenciar_locais.php?mensagem=" . urlencode("Erro ao preparar consulta.") . "&tipo=danger");
         exit();
     }
 }

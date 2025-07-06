@@ -2,17 +2,27 @@
 session_start();
 require '../includes/conexao.php';
 
-// Verifica se adm está logado
+// Verifica se admin está logado
 if (!isset($_SESSION['admin_id'])) {
     header("Location: ../logout.php");
     exit();
 }
 
 if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $id = mysqli_real_escape_string($conexao, $_GET['id']);
+    $id = $_GET['id'];
 
-    $sql = "DELETE FROM locais_doacao WHERE id = '$id'";
-    if (mysqli_query($conexao, $sql)) {
+    // Validação do ID como inteiro
+    if (!filter_var($id, FILTER_VALIDATE_INT)) {
+        header("Location: ../gerenciar_locais.php?mensagem=" . urlencode("ID inválido.") . "&tipo=danger");
+        exit();
+    }
+
+    // Exclusão segura com prepared statement
+    $sql = "DELETE FROM locais_doacao WHERE id = ?";
+    $stmt = mysqli_prepare($conexao, $sql);
+    mysqli_stmt_bind_param($stmt, 'i', $id);
+
+    if (mysqli_stmt_execute($stmt)) {
         header("Location: ../gerenciar_locais.php?mensagem=" . urlencode("Local removido com sucesso.") . "&tipo=success");
         exit();
     } else {

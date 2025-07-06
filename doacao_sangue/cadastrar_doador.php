@@ -17,22 +17,33 @@ $doador = [
 ];
 
 if (isset($_GET['id'])) {
-    if(isset($_SESSION['admin_id']) || $_GET['id'] == $_SESSION['doador_id']){
-        $id = mysqli_real_escape_string($conexao, $_GET['id']);
-        $sql = "SELECT * FROM doadores WHERE id = '$id'";
-        $result = mysqli_query($conexao, $sql);
-        if ($result && mysqli_num_rows($result) > 0) {
-            $doador = mysqli_fetch_assoc($result);
-            $modo_edicao = true;
+    if (isset($_SESSION['admin_id']) || $_GET['id'] == $_SESSION['doador_id']) {
+        $id = $_GET['id'];
+
+        // Valida se é um inteiro
+        if (!filter_var($id, FILTER_VALIDATE_INT)) {
+            echo "<div class='alert alert-danger text-center'>ID inválido.</div>";
         } else {
-            echo "<div class='alert alert-danger text-center'>Doador não encontrado.</div>";
+            $sql = "SELECT * FROM doadores WHERE id = ?";
+            $stmt = mysqli_prepare($conexao, $sql);
+            mysqli_stmt_bind_param($stmt, "i", $id);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+
+            if ($result && mysqli_num_rows($result) > 0) {
+                $doador = mysqli_fetch_assoc($result);
+                $modo_edicao = true;
+            } else {
+                echo "<div class='alert alert-danger text-center'>Doador não encontrado.</div>";
+            }
         }
-    }else{
-        header("Location: ../controle_doacoes.php?mensagem=" . urlencode("Você não tem permissão para editar esta doação.") . "&tipo=danger");
+    } else {
+        header("Location: ../controle_doacoes.php?mensagem=" . urlencode("Você não tem permissão para editar este doador.") . "&tipo=danger");
         exit();
     }
 }
 ?>
+
 
 <div class="row justify-content-center">
     <div class="col-md-8">
@@ -94,11 +105,11 @@ if (isset($_GET['id'])) {
                     <fieldset class="mb-3">
                         <legend class="form-label fs-6">1. Você pesa mais de 50kg?</legend>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="pesa_mais_50kg" id="peso_sim" value="1" required <?php echo $doador['pesa_mais_50kg'] == '1' ? 'checked' : ''; ?>>
+                            <input class="form-check-input" type="radio" name="pesa_mais_50kg" id="peso_sim" value="1" required <?php echo $doador['pesa_mais_50kg'] == 1 ? 'checked' : ''; ?>>
                             <label class="form-check-label" for="peso_sim">Sim</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="pesa_mais_50kg" id="peso_nao" value="0" <?php echo $doador['pesa_mais_50kg'] === '0' ? 'checked' : ''; ?>>
+                            <input class="form-check-input" type="radio" name="pesa_mais_50kg" id="peso_nao" value="0" <?php echo $doador['pesa_mais_50kg'] === 0 ? 'checked' : ''; ?>>
                             <label class="form-check-label" for="peso_nao">Não</label>
                         </div>
                     </fieldset>
@@ -106,11 +117,11 @@ if (isset($_GET['id'])) {
                     <fieldset class="mb-3">
                         <legend class="form-label fs-6">2. Teve febre nos últimos 7 dias?</legend>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="teve_febre_7dias" id="febre_sim" value="1" required <?php echo $doador['teve_febre_7dias'] == '1' ? 'checked' : ''; ?>>
+                            <input class="form-check-input" type="radio" name="teve_febre_7dias" id="febre_sim" value="1" required <?php echo $doador['teve_febre_7dias'] == 1 ? 'checked' : ''; ?>>
                             <label class="form-check-label" for="febre_sim">Sim</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="teve_febre_7dias" id="febre_nao" value="0" <?php echo $doador['teve_febre_7dias'] === '0' ? 'checked' : ''; ?>>
+                            <input class="form-check-input" type="radio" name="teve_febre_7dias" id="febre_nao" value="0" <?php echo $doador['teve_febre_7dias'] === 0 ? 'checked' : ''; ?>>
                             <label class="form-check-label" for="febre_nao">Não</label>
                         </div>
                     </fieldset>
@@ -118,11 +129,11 @@ if (isset($_GET['id'])) {
                     <fieldset class="mb-3">
                         <legend class="form-label fs-6">3. Fez tatuagem ou piercing nos últimos 12 meses?</legend>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="fez_tatuagem_12meses" id="tatuagem_sim" value="1" required <?php echo $doador['fez_tatuagem_12meses'] == '1' ? 'checked' : ''; ?>>
+                            <input class="form-check-input" type="radio" name="fez_tatuagem_12meses" id="tatuagem_sim" value="1" required <?php echo $doador['fez_tatuagem_12meses'] == 1 ? 'checked' : ''; ?>>
                             <label class="form-check-label" for="tatuagem_sim">Sim</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="fez_tatuagem_12meses" id="tatuagem_nao" value="0" <?php echo $doador['fez_tatuagem_12meses'] === '0' ? 'checked' : ''; ?>>
+                            <input class="form-check-input" type="radio" name="fez_tatuagem_12meses" id="tatuagem_nao" value="0" <?php echo $doador['fez_tatuagem_12meses'] === 0 ? 'checked' : ''; ?>>
                             <label class="form-check-label" for="tatuagem_nao">Não</label>
                         </div>
                     </fieldset>
