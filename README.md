@@ -66,9 +66,8 @@ O sistema foi construído utilizando as seguintes tecnologias:
       - [x] Criar `logout.php` para destruir a sessão.
 
 #### Fase 3: Desenvolvimento das Páginas e Funcionalidades
-  - [ ] Páginas Privadas:
+  - [x] Páginas Privadas:
       - [x] Desenvolver `painel_adm.php`.
-      - [ ] Desenvolver `home.php`.
   - [ ] Páginas Públicas:
       - [x] Desenvolver `index.php`.
       - [ ] Desenvolver `quem_somos.php`.

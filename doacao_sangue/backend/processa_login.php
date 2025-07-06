@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mysqli_stmt_fetch($stmt);
         $_SESSION['doador_id'] = $doador_id;
         $_SESSION['doador_nome'] = $doador_nome;
-        header("Location: ../home.php");
+        header("Location: ../controle_doacoes.php");
         exit();
     }
     mysqli_stmt_close($stmt);

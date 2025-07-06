@@ -11,11 +11,19 @@ if (isset($_SESSION['admin_id'])) {
         <div class="card shadow-lg">
             <div class="card-body p-5">
                 <h2 class="card-title text-center mb-4">Login</h2>
-                <p class="card-text text-center mb-4">Por favor, insira seu usuario de administrador, ou CPF caso seja um doador.</p>
+                <p class="card-text text-center mb-4">Por favor, insira seu usuário de administrador, ou CPF caso seja um doador.</p>
                 
                 <?php
                 if (isset($_GET['error'])) {
-                    echo '<div class="alert alert-danger">Usuário inválido.</div>';
+                    if ($_GET['error'] == '1') {
+                        echo '<div class="alert alert-danger text-center">Usuário inválido.</div>';
+                    } elseif (
+                        $_GET['error'] == 'acesso_negado' || 
+                        $_GET['error'] == 'acesso_negado_admin' || 
+                        $_GET['error'] == 'acesso_negado_doador'
+                    ) {
+                        echo '<div class="alert alert-warning text-center">Acesso negado. Faça login novamente.</div>';
+                    }
                 }
                 ?>
 
@@ -28,9 +36,4 @@ if (isset($_SESSION['admin_id'])) {
                          <button type="submit" class="btn btn-danger btn-block">Entrar</button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<?php include 'includes/footer.php'; ?>
+            </

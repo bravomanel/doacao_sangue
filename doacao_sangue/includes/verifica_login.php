@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 // Verifica se a variável de contexto foi passada
 if (!isset($tipo_usuario)) {
     die("Erro de configuração: variável \$tipo_usuario não definida em " . basename(__FILE__));

@@ -1,45 +1,50 @@
 <?php
 $tipo_usuario = 'admin';
-include 'includes/verifica_login.php';
 include 'includes/header.php';
+include 'includes/verifica_login.php';
 ?>
 
 <div class="p-5 mb-4 bg-light rounded-3 text-center">
     <div class="container-fluid py-5">
         <h1 class="display-4 fw-bold">Painel do Administrador 🩸</h1>
-        <p class="fs-4">Bem-vindo, <?php echo htmlspecialchars($_SESSION['admin_usuario']); ?>! Gerencie doadores, estoques e campanhas de doação.</p>
+        <p class="fs-4">Bem-vindo, <?php echo htmlspecialchars($_SESSION['admin_usuario']); ?>! Utilize este painel para gerenciar doadores, locais de doação e o controle de doações.</p>
         <a href="cadastrar_doador.php" class="btn btn-danger btn-lg mt-3" role="button">Cadastrar Novo Doador</a>
     </div>
 </div>
 
 <div class="row g-4">
+    <!-- Gerenciar Doadores -->
     <div class="col-md-4">
         <div class="card text-center h-100 shadow">
             <div class="card-body">
                 <i class="bi bi-people-fill fs-1 text-danger"></i>
                 <h5 class="card-title mt-3">Gerenciar Doadores</h5>
-                <p class="card-text">Visualize, cadastre e atualize informações dos doadores cadastrados em nossa clínica.</p>
+                <p class="card-text">Visualize, cadastre, edite ou exclua registros de doadores de forma rápida e eficiente.</p>
                 <a href="gerenciar_doadores.php" class="btn btn-outline-danger mt-2">Acessar</a>
             </div>
         </div>
     </div>
+
+    <!-- Controle de Doações -->
     <div class="col-md-4">
         <div class="card text-center h-100 shadow">
             <div class="card-body">
-                <i class="bi bi-droplet-fill fs-1 text-danger"></i>
-                <h5 class="card-title mt-3">Controle de Estoque</h5>
-                <p class="card-text">Monitore os estoques de sangue disponíveis por tipo sanguíneo e gerencie as entradas e saídas.</p>
-                <a href="estoque_sangue.php" class="btn btn-outline-danger mt-2">Acessar</a>
+                <i class="bi bi-droplet-half fs-1 text-danger"></i>
+                <h5 class="card-title mt-3">Controle de Doações</h5>
+                <p class="card-text">Gerencie o histórico de doações de cada doador e registre novas doações realizadas na clínica.</p>
+                <a href="controle_doacoes.php" class="btn btn-outline-danger mt-2">Acessar</a>
             </div>
         </div>
     </div>
+
+    <!-- Gerenciar Locais de Doação -->
     <div class="col-md-4">
         <div class="card text-center h-100 shadow">
             <div class="card-body">
-                <i class="bi bi-calendar-event-fill fs-1 text-danger"></i>
-                <h5 class="card-title mt-3">Campanhas</h5>
-                <p class="card-text">Crie e gerencie campanhas de doação de sangue para incentivar a participação da comunidade.</p>
-                <a href="campanhas.php" class="btn btn-outline-danger mt-2">Acessar</a>
+                <i class="bi bi-geo-alt-fill fs-1 text-danger"></i>
+                <h5 class="card-title mt-3">Locais de Doação</h5>
+                <p class="card-text">Cadastre, edite ou remova locais de coleta de doações disponíveis para os doadores.</p>
+                <a href="gerenciar_locais.php" class="btn btn-outline-danger mt-2">Acessar</a>
             </div>
         </div>
     </div>
