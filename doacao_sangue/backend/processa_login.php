@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $usuario = trim($_POST['usuario']);
 
     if (empty($usuario)) {
-        header("Location: ../login.php?error=1");
+        header("Location: ../login.php?mensagem=" . urlencode("Faça o login para continuar.") . "&tipo=danger");
         exit();
     }
 
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     mysqli_stmt_close($stmt);
 
     // Se não encontrar, retorna com erro
-    header("Location: ../login.php?error=1");
+    header("Location: ../login.php?mensagem=" . urlencode("Usuário não encontrado!") . "&tipo=warning");
     exit();
 
 } else {

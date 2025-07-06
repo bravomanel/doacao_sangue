@@ -69,9 +69,9 @@ O sistema foi construído utilizando as seguintes tecnologias:
   - [x] Páginas Privadas:
       - [x] Desenvolver `painel_adm.php`.
       - [x] Desenvolver `registrar_doacao.php`.
-  - [ ] Páginas Públicas:
+  - [x] Páginas Públicas:
       - [x] Desenvolver `index.php`.
-      - [ ] Desenvolver `quem_somos.php`.
+      - [x] Desenvolver `quem_somos.php`.
   - [ ] CRUD de Doadores:
       - [ ] Create: Atualizar `cadastrar_doador.php` com os campos de CPF, CEP e o questionário. Atualizar `backend/processa_cadastro.php`.
       - [ ] Read: Implementar `gerenciar_doadores.php`.
@@ -81,9 +81,9 @@ O sistema foi construído utilizando as seguintes tecnologias:
       - [ ] Criar a página `gerenciar_locais.php` para listar, editar e excluir locais.
       - [ ] Criar formulário e script para `cadastrar_local.php` e `backend/processa_local_cadastro.php`.
       - [ ] Criar formulário e script para `editar_local.php` e `backend/processa_local_edicao.php`.
-  - [ ] Controle de Doações:
-      - [ ] Atualizar `controle_doacoes.php` para que o formulário de nova doação inclua um `<select>` com os locais de doação cadastrados.
-      - [ ] Atualizar `backend/processa_doacao.php` para salvar o `local_id`.
+  - [x] Controle de Doações:
+      - [x] Atualizar `controle_doacoes.php` para que o formulário de nova doação inclua um `<select>` com os locais de doação cadastrados.
+      - [x] Atualizar `backend/processa_doacao.php` para salvar o `local_id`.
 
 #### Fase 4: Finalização
 

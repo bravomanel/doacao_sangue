@@ -13,19 +13,13 @@ if (isset($_SESSION['admin_id'])) {
                 <h2 class="card-title text-center mb-4">Login</h2>
                 <p class="card-text text-center mb-4">Por favor, insira seu usuário de administrador, ou CPF caso seja um doador.</p>
                 
-                <?php
-                if (isset($_GET['error'])) {
-                    if ($_GET['error'] == '1') {
-                        echo '<div class="alert alert-danger text-center">Usuário inválido.</div>';
-                    } elseif (
-                        $_GET['error'] == 'acesso_negado' || 
-                        $_GET['error'] == 'acesso_negado_admin' || 
-                        $_GET['error'] == 'acesso_negado_doador'
-                    ) {
-                        echo '<div class="alert alert-warning text-center">Acesso negado. Faça login novamente.</div>';
-                    }
-                }
-                ?>
+                <?php if (isset($_GET['mensagem']) && isset($_GET['tipo'])): ?>
+                    <div class="container mt-3">
+                        <div class="alert alert-<?php echo htmlspecialchars($_GET['tipo']); ?> text-center">
+                            <?php echo htmlspecialchars($_GET['mensagem']); ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
 
                 <form action="backend/processa_login.php" method="POST">
                     <div class="mb-3">

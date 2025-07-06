@@ -7,7 +7,7 @@ if (!isset($tipo_usuario)) {
 // Verificação para admin
 if ($tipo_usuario === 'admin') {
     if (!isset($_SESSION['admin_id'])) {
-        header("Location: login.php?error=acesso_negado_admin");
+        header("Location: ../login.php?mensagem=" . urlencode("Faça o login para continuar.") . "&tipo=danger");
         exit();
     }
 }
@@ -15,7 +15,7 @@ if ($tipo_usuario === 'admin') {
 // Verificação para doador
 elseif ($tipo_usuario === 'doador') {
     if (!isset($_SESSION['doador_id'])) {
-        header("Location: login.php?error=acesso_negado_doador");
+        header("Location: ../login.php?mensagem=" . urlencode("Faça o login para continuar.") . "&tipo=danger");
         exit();
     }
 }
