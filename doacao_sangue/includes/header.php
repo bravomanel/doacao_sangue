@@ -13,7 +13,7 @@ $tipo_usuario = isset($_SESSION['admin_id']) ? 'admin' : 'doador';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/custom.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-danger shadow-sm">
   <div class="container-fluid">
@@ -85,4 +85,4 @@ $tipo_usuario = isset($_SESSION['admin_id']) ? 'admin' : 'doador';
   </div>
 </nav>
 
-<main class="container mt-4">
+<main class="container mt-4 flex-grow-1">
