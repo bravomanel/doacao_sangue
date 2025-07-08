@@ -1,21 +1,11 @@
 
 ## Estrutura do Banco de Dados (MySQL)
 
-Para acomodar as novas funcionalidades, a estrutura do banco de dados foi atualizada:
-
-Tabela: `administradores`
-
-```sql
 CREATE TABLE administradores (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario VARCHAR(50) NOT NULL UNIQUE
 );
-```
 
-
-Tabela: `doadores`
-
-```sql
 CREATE TABLE doadores (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome_completo VARCHAR(255) NOT NULL,
@@ -30,11 +20,7 @@ CREATE TABLE doadores (
     teve_febre_7dias BOOLEAN NOT NULL,
     fez_tatuagem_12meses BOOLEAN NOT NULL
 );
-```
 
-Tabela: `locais_doacao`
-
-```sql
 CREATE TABLE locais_doacao (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome_local VARCHAR(255) NOT NULL,
@@ -43,11 +29,7 @@ CREATE TABLE locais_doacao (
     cidade VARCHAR(100) NOT NULL,
     estado VARCHAR(2) NOT NULL
 );
-```
 
-Tabela: `doacoes`
-
-```sql
 CREATE TABLE doacoes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     doador_id INT NOT NULL,
@@ -58,4 +40,3 @@ CREATE TABLE doacoes (
     FOREIGN KEY (doador_id) REFERENCES doadores(id) ON DELETE CASCADE,
     FOREIGN KEY (local_id) REFERENCES locais_doacao(id)
 );
-```
